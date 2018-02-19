@@ -120,7 +120,7 @@ if [ $OS = "centos" ] || [ $OS = "rhel" ];then
   sudo chmod 0755 /usr/local/bin/porosity
 
 elif [ $OS = "ubuntu" ];then
-  echo "Installing the environment in " + $OS 
+  echo "Installing the environment in $OS" 
 
   GOREL="go1.7.3.linux-amd64.tar.gz"
 
