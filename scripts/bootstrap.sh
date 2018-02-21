@@ -199,10 +199,4 @@ if [[ -z "$GOROOT" ]]; then
 fi
 sudo chown -R $USER ~/blockcheq/
 
-
-# install Monitor
-#~/blockcheq-node/scripts/monitor.sh build
-#~/blockcheq-node/scripts/monitor.sh start 
-
-
 set +e
