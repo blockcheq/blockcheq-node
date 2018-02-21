@@ -13,6 +13,7 @@ fi
 
 CURRENT_HOST_IP="$1"
 NODE_NAME="$2"
+NODE_TYPE='general'
 ACCOUNT_PASSWORD='garfield123'
 
 
