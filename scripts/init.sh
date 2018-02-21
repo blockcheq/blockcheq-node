@@ -2,19 +2,17 @@
 set -u
 set -e
 
-MESSAGE='Usage: init <mode> <node-type> <node-name>
+MESSAGE='Usage: init <mode> <node-name>
     mode: CURRENT_HOST_IP | auto | backup
-    node-type: validator | general
     node-name: NODE_NAME (example: Blockcheq)'
 
-if ( [ $# -ne 3 ] ); then
+if ( [ $# -ne 2 ] ); then
     echo "$MESSAGE"
     exit
 fi
 
 CURRENT_HOST_IP="$1"
-NODE_TYPE="$2"
-NODE_NAME="$3"
+NODE_NAME="$2"
 ACCOUNT_PASSWORD='garfield123'
 
 
@@ -48,8 +46,7 @@ fi
 PWD="$(pwd)"
 CONSTELLATION_NODES=$(cat ../data/constellation-nodes.json)
 STATIC_NODES=$(cat ../data/static-nodes.json)
-PERMISSIONED_NODES_VALIDATOR=$(cat ../data/permissioned-nodes_validator.json)
-PERMISSIONED_NODES_GENERAL=$(cat ../data/permissioned-nodes_general.json)
+PERMISSIONED_NODES=$(cat ../data/permissioned-nodes.json)
 
 update_constellation_nodes() {
     NODE_IP="$1"
@@ -63,25 +60,17 @@ update_constellation_nodes() {
 }
 
 update_nodes_list() {
-    echo "Selected $NODE_TYPE node..."
     echo "Updating permissioned nodes..."
 
        ENODE=",
     \"$1\"
 ]"
-    PERMISSIONED_NODES_VALIDATOR=${PERMISSIONED_NODES_VALIDATOR::-2}
-    PERMISSIONED_NODES_VALIDATOR="$PERMISSIONED_NODES_VALIDATOR$ENODE"
-    echo "$PERMISSIONED_NODES_VALIDATOR" > ~/blockcheq-node/data/permissioned-nodes_validator.json
-
-    if ( [ "validator" == "$NODE_TYPE" ]); then 
-        PERMISSIONED_NODES_GENERAL=${PERMISSIONED_NODES_GENERAL::-2}
-        PERMISSIONED_NODES_GENERAL="$PERMISSIONED_NODES_GENERAL$ENODE"
-        echo "$PERMISSIONED_NODES_GENERAL" > ~/blockcheq-node/data/permissioned-nodes_general.json
-    fi
+    PERMISSIONED_NODES=${PERMISSIONED_NODES::-2}
+    PERMISSIONED_NODES="$PERMISSIONED_NODES$ENODE"
+    echo "$PERMISSIONED_NODES" > ~/blockcheq-node/data/permissioned-nodes.json
 
     echo "Updating static-nodes..."
-    cp ~/blockcheq-node/data/permissioned-nodes_general.json ~/blockcheq-node/data/static-nodes.json
-
+    cp ~/blockcheq-node/data/permissioned-nodes.json ~/blockcheq-node/data/static-nodes.json
 }
 
 
@@ -168,32 +157,25 @@ if [[ "$CURRENT_HOST_IP" == "10.0.3.81" ]]; then
     cp ~/blockcheq-node/data/static-nodes.json ~/blockcheq/data/static-nodes.json
     cp ~/blockcheq-node/data/static-nodes.json ~/blockcheq/data/permissioned-nodes.json
 else 
-    if [[ "$NODE_TYPE" == "general" ]]; then
-        cp ~/blockcheq-node/data/permissioned-nodes_general.json ~/blockcheq/data/permissioned-nodes.json
-        cp ~/blockcheq-node/data/permissioned-nodes_general.json ~/blockcheq/data/static-nodes.json
-    else 
-        cp ~/blockcheq-node/data/permissioned-nodes_validator.json ~/blockcheq/data/permissioned-nodes.json
-        cp ~/blockcheq-node/data/permissioned-nodes_validator.json ~/blockcheq/data/static-nodes.json
-    fi
+    cp ~/blockcheq-node/data/permissioned-nodes.json ~/blockcheq/data/permissioned-nodes.json
+    cp ~/blockcheq-node/data/permissioned-nodes.json ~/blockcheq/data/static-nodes.json
 fi
 
 
-if ( [ "general" == "$NODE_TYPE" ]); then 
-    echo  "     Definida contraseña por defecto para cuenta principal como: $ACCOUNT_PASSWORD."
-    echo $ACCOUNT_PASSWORD > ./account_pass
-    geth --datadir ~/blockcheq/data --password ./account_pass account new
-    rm ./account_pass
+echo  "     Definida contraseña por defecto para cuenta principal como: $ACCOUNT_PASSWORD."
+echo $ACCOUNT_PASSWORD > ./account_pass
+geth --datadir ~/blockcheq/data --password ./account_pass account new
+rm ./account_pass
 
-    echo "[*] Initializing Constellation node."
-    if ( [ "backup" != "$1" ]); then
-        update_constellation_nodes "${CURRENT_HOST_IP}" "9000"
-    fi
-    generate_conf "${CURRENT_HOST_IP}" "9000" "$CONSTELLATION_NODES" "${PWD}" > ~/blockcheq/data/constellation/constellation.conf
-    cd ~/blockcheq/data/constellation/keystore
-    cat ~/blockcheq/data/passwords.txt | constellation-node --generatekeys=node
-    echo "______"
-    cd ~
+echo "[*] Initializing Constellation node."
+if ( [ "backup" != "$1" ]); then
+    update_constellation_nodes "${CURRENT_HOST_IP}" "9000"
 fi
+generate_conf "${CURRENT_HOST_IP}" "9000" "$CONSTELLATION_NODES" "${PWD}" > ~/blockcheq/data/constellation/constellation.conf
+cd ~/blockcheq/data/constellation/keystore
+cat ~/blockcheq/data/passwords.txt | constellation-node --generatekeys=node
+echo "______"
+cd ~
 
 
 if ( [ "backup" == "$1" ]); then 
@@ -229,7 +211,7 @@ fi
 
 echo "[*] Initialization was completed successfully."
 echo " "
-echo "      Update DIRECTORY_REGULAR.md or DIRECTORY_VALIDATOR.md from blockcheq-node repository and send a Pull Request."
+echo "      Update DIRECTORY.md from blockcheq-node repository and send a Pull Request."
 echo "      Don't forget the .json files in data folder!."
 echo " "
 
