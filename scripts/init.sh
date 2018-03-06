@@ -154,7 +154,7 @@ if ( [ "backup" != "$1" ]); then
     update_nodes_list "enode://${ENODE_KEY}@${CURRENT_HOST_IP}:21000?discport=0"
 fi
 cd ~
-if [[ "$CURRENT_HOST_IP" == "10.0.3.81" ]]; then
+if [[ "$CURRENT_HOST_IP" == "10.0.3.67" ]]; then
     cp ~/blockcheq-node/data/static-nodes.json ~/blockcheq/data/static-nodes.json
     cp ~/blockcheq-node/data/static-nodes.json ~/blockcheq/data/permissioned-nodes.json
 else 
