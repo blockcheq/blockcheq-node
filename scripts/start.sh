@@ -46,16 +46,21 @@ if [[ ! -f "permissioned-nodes.json" ]]; then
 fi
 
 echo "[*] Starting quorum node"
-if [[ "$NODE_TYPE" == "general" ]]; then
-    PRIVATE_CONFIG=~/blockcheq/data/constellation/constellation.conf nohup geth --datadir ~/blockcheq/data $GLOBAL_ARGS 2>> ~/blockcheq/logs/quorum_"${_TIME}".log &
+# if [[ "$NODE_TYPE" == "general" ]]; then
+#     PRIVATE_CONFIG=~/blockcheq/data/constellation/constellation.conf nohup geth --datadir ~/blockcheq/data $GLOBAL_ARGS 2>> ~/blockcheq/logs/quorum_"${_TIME}".log &
+# else
+#     if [[ "$NODE_TYPE" == "validator" ]]; then
+#         if [[ "$CURRENT_HOST_IP" == "10.0.3.81" ]]; then
+#             nohup geth --datadir ~/blockcheq/data $GLOBAL_ARGS --mine --minerthreads 1 --syncmode "full" --unlock 0 --password ~/blockcheq/data/passwords.txt 2>> ~/blockcheq/logs/quorum_"${_TIME}".log &
+#         else
+#             nohup geth --datadir ~/blockcheq/data $GLOBAL_ARGS --mine --minerthreads 1 --syncmode "full" 2>> ~/blockcheq/logs/quorum_"${_TIME}".log &
+#         fi
+#     fi
+# fi
+if [[ "$CURRENT_HOST_IP" == "10.0.3.67" ]]; then
+    PRIVATE_CONFIG=~/blockcheq/data/constellation/constellation.conf nohup geth --datadir ~/blockcheq/data $GLOBAL_ARGS --mine --minerthreads 1 --syncmode "full" --unlock 0 --password ~/blockcheq/data/passwords.txt 2>> ~/blockcheq/logs/quorum_"${_TIME}".log &
 else
-    if [[ "$NODE_TYPE" == "validator" ]]; then
-        if [[ "$CURRENT_HOST_IP" == "10.0.3.81" ]]; then
-            nohup geth --datadir ~/blockcheq/data $GLOBAL_ARGS --mine --minerthreads 1 --syncmode "full" --unlock 0 --password ~/blockcheq/data/passwords.txt 2>> ~/blockcheq/logs/quorum_"${_TIME}".log &
-        else
-            nohup geth --datadir ~/blockcheq/data $GLOBAL_ARGS --mine --minerthreads 1 --syncmode "full" 2>> ~/blockcheq/logs/quorum_"${_TIME}".log &
-        fi
-    fi
+    PRIVATE_CONFIG=~/blockcheq/data/constellation/constellation.conf nohup geth --datadir ~/blockcheq/data $GLOBAL_ARGS --mine --minerthreads 1 --syncmode "full" 2>> ~/blockcheq/logs/quorum_"${_TIME}".log &
 fi
 
 if ([ ! $# -ne 1 ] && [ "dockerfile" == "$1" ]); then 
