@@ -6,7 +6,7 @@ OS=$(cat /etc/os-release | grep "^ID=" | sed 's/ID=//g' | sed 's\"\\g')
 if [ $OS = "centos" ] || [ $OS = "rhel" ];then
   echo "Installing the environment in $OS"  
 
-  GOREL="go1.7.3.linux-amd64.tar.gz"
+  GOREL="go1.9.3.linux-amd64.tar.gz"
 
   #install Go
   if ! type "go" > /dev/null; then
