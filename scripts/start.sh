@@ -28,7 +28,8 @@ fi
 
 NETID=953575359
 mapfile -t IDENTITY <~/blockcheq/data/IDENTITY
-GLOBAL_ARGS="--networkid $NETID --identity $IDENTITY --permissioned --rpc --rpcaddr 0.0.0.0 --rpcapi admin,db,eth,debug,miner,net,shh,txpool,personal,web3,quorum,istanbul --rpcport 22000 --port 21000 --istanbul.requesttimeout 30000 "
+# GLOBAL_ARGS="--networkid $NETID --identity $IDENTITY --permissioned --rpc --rpcaddr 0.0.0.0 --rpcapi admin,db,eth,debug,miner,net,shh,txpool,personal,web3,quorum,istanbul --rpcport 22000 --port 21000 --istanbul.requesttimeout 30000 "
+GLOBAL_ARGS="--networkid $NETID --identity $IDENTITY --rpc --rpcaddr 0.0.0.0 --rpcapi admin,db,eth,debug,miner,net,shh,txpool,personal,web3,quorum,istanbul --rpcport 22000 --port 21000 "
 
 _TIME=$(date +%Y%m%d%H%M%S)
 
@@ -57,10 +58,10 @@ echo "[*] Starting quorum node"
 #         fi
 #     fi
 # fi
-if [[ "$CURRENT_HOST_IP" == "10.0.3.67" ]]; then
-    PRIVATE_CONFIG=~/blockcheq/data/constellation/constellation.conf nohup geth --datadir ~/blockcheq/data $GLOBAL_ARGS --mine --minerthreads 1 --syncmode "full" --unlock 0 --password ~/blockcheq/data/passwords.txt 2>> ~/blockcheq/logs/quorum_"${_TIME}".log &
+if [[ "$CURRENT_HOST_IP" == "10.0.3.81" ]]; then
+    PRIVATE_CONFIG=~/blockcheq/data/constellation/constellation.conf nohup geth --datadir ~/blockcheq/data $GLOBAL_ARGS --mine --minerthreads 1 --syncmode full --unlock 0 --password ~/blockcheq/data/passwords.txt 2>> ~/blockcheq/logs/quorum_"${_TIME}".log &
 else
-    PRIVATE_CONFIG=~/blockcheq/data/constellation/constellation.conf nohup geth --datadir ~/blockcheq/data $GLOBAL_ARGS --mine --minerthreads 1 --syncmode "full" 2>> ~/blockcheq/logs/quorum_"${_TIME}".log &
+    PRIVATE_CONFIG=~/blockcheq/data/constellation/constellation.conf nohup geth --datadir ~/blockcheq/data $GLOBAL_ARGS --mine --minerthreads 1 --syncmode full 2>> ~/blockcheq/logs/quorum_"${_TIME}".log &
 fi
 
 if ([ ! $# -ne 1 ] && [ "dockerfile" == "$1" ]); then 
