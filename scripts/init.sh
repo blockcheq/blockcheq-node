@@ -14,7 +14,8 @@ fi
 CURRENT_HOST_IP="$1"
 NODE_NAME="$2"
 NODE_TYPE='general'
-ACCOUNT_PASSWORD='garfield123'
+# ACCOUNT_PASSWORD='garfield123'
+ACCOUNT_PASSWORD=
 
 
 if ( [ "auto" == "$1" -o "backup" == "$1" ]); then 
@@ -133,13 +134,25 @@ echo "$NODE_NAME" > ~/blockcheq/data/IDENTITY
 echo "$NODE_TYPE" > ~/blockcheq/data/NODE_TYPE
 
 # Creamos el fichero de passwords con la contraseña de las cuentas
-echo "garfield123" > ~/blockcheq/data/passwords.txt
+# echo "garfield123" > ~/blockcheq/data/passwords.txt
+echo "$ACCOUNT_PASSWORD"  > ~/blockcheq/data/passwords.txt
 
 echo "[*] Initializing quorum"
-geth --datadir ~/blockcheq/data init ~/blockcheq-node/data/genesis.json
-cd ~/blockcheq/data/geth
-bootnode -genkey nodekey
-ENODE_KEY=$(bootnode -nodekey nodekey -writeaddress)
+if [[ "$CURRENT_HOST_IP" == "10.0.3.81" ]]; then
+    # cp ~/blockcheq-node/data/keystore/UTC--2017-01-05T12-57-49.038440259Z--e97b27174703f8f1c6a417c0605380815f4e7aa4 ~/blockcheq/data/keystore
+    cp ~/blockcheq-node/data/keystore/key1 ~/blockcheq/data/keystore
+    cp ~/blockcheq-node/data/keys/nodekey1 ~/blockcheq/data/geth/nodekey
+    cp ~/blockcheq-node/data/static-nodes.json ~/blockcheq/data/static-nodes.json
+    cp ~/blockcheq-node/data/static-nodes.json ~/blockcheq/data/permissioned-nodes.json
+    geth --datadir ~/blockcheq/data init ~/blockcheq-node/data/istanbul-genesis.json
+    cd ~/blockcheq/data/geth
+    ENODE_KEY=$(bootnode -nodekey nodekey -writeaddress)
+else    
+    geth --datadir ~/blockcheq/data init ~/blockcheq-node/data/istanbul-genesis.json
+    cd ~/blockcheq/data/geth
+    bootnode -genkey nodekey
+    ENODE_KEY=$(bootnode -nodekey nodekey -writeaddress)
+fi
 
 if ( [ "backup" == "$1" ]); then
     ENODE_KEY=$(bootnode -nodekey ~/blockcheq-keysBackup/data/geth/nodekey -writeaddress)
@@ -154,19 +167,21 @@ if ( [ "backup" != "$1" ]); then
     update_nodes_list "enode://${ENODE_KEY}@${CURRENT_HOST_IP}:21000?discport=0"
 fi
 cd ~
-if [[ "$CURRENT_HOST_IP" == "10.0.3.67" ]]; then
-    cp ~/blockcheq-node/data/static-nodes.json ~/blockcheq/data/static-nodes.json
-    cp ~/blockcheq-node/data/static-nodes.json ~/blockcheq/data/permissioned-nodes.json
-else 
+# if [[ "$CURRENT_HOST_IP" == "10.0.3.81" ]]; then
+#     cp ~/blockcheq-node/data/static-nodes.json ~/blockcheq/data/static-nodes.json
+#     cp ~/blockcheq-node/data/static-nodes.json ~/blockcheq/data/permissioned-nodes.json
+# else 
+if [[ "$CURRENT_HOST_IP" != "10.0.3.81" ]]; then
     cp ~/blockcheq-node/data/permissioned-nodes.json ~/blockcheq/data/permissioned-nodes.json
     cp ~/blockcheq-node/data/permissioned-nodes.json ~/blockcheq/data/static-nodes.json
 fi
 
-
-echo  "     Definida contraseña por defecto para cuenta principal como: $ACCOUNT_PASSWORD."
-echo $ACCOUNT_PASSWORD > ./account_pass
-geth --datadir ~/blockcheq/data --password ./account_pass account new
-rm ./account_pass
+if [[ "$CURRENT_HOST_IP" != "10.0.3.81" ]]; then
+    echo  "     Definida contraseña por defecto para cuenta principal como: $ACCOUNT_PASSWORD."
+    echo $ACCOUNT_PASSWORD > ./account_pass
+    geth --datadir ~/blockcheq/data --password ./account_pass account new
+    rm ./account_pass
+fi
 
 echo "[*] Initializing Constellation node."
 if ( [ "backup" != "$1" ]); then
