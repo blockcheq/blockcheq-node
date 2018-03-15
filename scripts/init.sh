@@ -207,7 +207,7 @@ if ( [ "backup" == "$1" ]); then
     echo "Recovering enode ID ..."
     cp ~/blockcheq-keysBackup/data/geth/nodekey ~/blockcheq/data/geth/nodekey
     echo "Cleaning backup files ..."
-    rm -rf ~/blockcheq-keysBackup
+    # rm -rf ~/blockcheq-keysBackup
 fi
 
 if ( [ "dockerfile" == "$1" ]); then 
