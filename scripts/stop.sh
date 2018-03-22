@@ -2,11 +2,11 @@
 
 set -e
 
-mapfile -t NODE_TYPE <~/blockcheq/data/NODE_TYPE
+#mapfile -t NODE_TYPE <~/blockcheq/data/NODE_TYPE
 
-if [[ "$NODE_TYPE" == "general" ]]; then
+#if [[ "$NODE_TYPE" == "general" ]]; then
     pkill -f constellation-node
-fi
+#fi
 
 pkill -f geth
 

@@ -78,9 +78,9 @@ echo "[*] Updating permissioned nodes."
 cp ~/blockcheq-node/data/static-nodes.json ~/blockcheq/data/static-nodes.json
 if [[ "$NODE_TYPE" == "general" ]]; then
     generate_conf "${CURRENT_HOST_IP}" "9000" "$CONSTELLATION_NODES" "${PWD}" > ~/blockcheq/data/constellation/constellation.conf
-    cp ~/blockcheq-node/data/permissioned-nodes_general.json ~/blockcheq/data/permissioned-nodes.json
+    cp ~/blockcheq-node/data/permissioned-nodes.json ~/blockcheq/data/permissioned-nodes.json
 else
-    cp ~/blockcheq-node/data/permissioned-nodes_validator.json ~/blockcheq/data/permissioned-nodes.json
+    cp ~/blockcheq-node/data/permissioned-nodes.json ~/blockcheq/data/permissioned-nodes.json
 fi
 
 cp /tmp/nodekey ~/blockcheq/data/geth/
