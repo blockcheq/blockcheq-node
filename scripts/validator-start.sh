@@ -2,33 +2,30 @@
 set -u
 set -e
 
+CURRENT_HOST_IP="10.0.3.81"
+
 echo "[*] Starting Constellation nodes"
 NODE_NAME="general1"
 DDIR1=~/blockcheq/data/"$NODE_NAME"/constellation
 #CMD="constellation-node --url=https://10.0.3.81:9000/ --port=9000 --workdir=$DDIR --socket=node.ipc --publickeys=node.pub --privatekeys=node.key --othernodes=https://10.0.3.81:9001/"
 #echo "$CMD >> ~/blockcheq/logs/constellation_$NODE_NAME.log 2>&1 &"
 #$CMD 2>> "~/blockcheq/logs/constellation_$NODE_NAME.log" 2>&1 &
-#nohup constellation-node --url=https://10.0.3.81:9000/ --port=9000 --workdir=$DDIR --socket=node.ipc --publickeys=node.pub --privatekeys=node.key 2>>~/blockcheq/logs/constellation_$NODE_NAME.log &
-nohup constellation-node --url=https://127.0.0.1:9000/ --port=9000 --workdir=$DDIR1 --socket=node.ipc --publickeys=node.pub --privatekeys=node.key --othernodes=https://127.0.0.1:9000/ 2>>~/blockcheq/logs/constellation_$NODE_NAME.log &
+nohup constellation-node --url=https://$CURRENT_HOST_IP:9000/ --port=9000 --workdir=$DDIR1 --socket=node.ipc --publickeys=node.pub --privatekeys=node.key --othernodes=https://$CURRENT_HOST_IP:9000/ 2>>~/blockcheq/logs/constellation_$NODE_NAME.log &
 sleep 3
 
 NODE_NAME="general2"
 DDIR2=~/blockcheq/data/"$NODE_NAME"/constellation
-#CMD="constellation-node --url=https://10.0.3.81:9001/ --port=9001 --workdir=$DDIR --socket=node.ipc --publickeys=node.pub --privatekeys=node.key --othernodes=https://10.0.3.81:9000/"
-#echo "$CMD >> ~/blockcheq/logs/constellation_$NODE_NAME.log 2>&1 &"
-#$CMD >> "~/blockcheq/logs/constellation_$NODE_NAME.log" 2>&1 &
-#nohup constellation-node --url=https://10.0.3.81:9001/ --port=9001 --workdir=$DDIR --socket=node.ipc --publickeys=node.pub --privatekeys=node.key --othernodes=https://10.0.3.81:9000/ 2>>~/blockcheq/logs/constellation_$NODE_NAME.log &
-nohup constellation-node --url=https://127.0.0.2:9001/ --port=9001 --workdir=$DDIR2 --socket=node.ipc --publickeys=node.pub --privatekeys=node.key --othernodes=https://127.0.0.1:9000/ 2>>~/blockcheq/logs/constellation_$NODE_NAME.log &
+nohup constellation-node --url=https://$CURRENT_HOST_IP:9001/ --port=9001 --workdir=$DDIR2 --socket=node.ipc --publickeys=node.pub --privatekeys=node.key --othernodes=https://$CURRENT_HOST_IP:9000/ 2>>~/blockcheq/logs/constellation_$NODE_NAME.log &
 sleep 2
 
 NODE_NAME="general3"
 DDIR3=~/blockcheq/data/"$NODE_NAME"/constellation
-nohup constellation-node --url=https://127.0.0.3:9002/ --port=9002 --workdir=$DDIR3 --socket=node.ipc --publickeys=node.pub --privatekeys=node.key --othernodes=https://127.0.0.1:9000/ 2>>~/blockcheq/logs/constellation_$NODE_NAME.log &
+nohup constellation-node --url=https://$CURRENT_HOST_IP:9002/ --port=9002 --workdir=$DDIR3 --socket=node.ipc --publickeys=node.pub --privatekeys=node.key --othernodes=https://$CURRENT_HOST_IP:9000/ 2>>~/blockcheq/logs/constellation_$NODE_NAME.log &
 sleep 2
 
 NODE_NAME="general4"
 DDIR4=~/blockcheq/data/"$NODE_NAME"/constellation
-nohup constellation-node --url=https://127.0.0.4:9003/ --port=9003 --workdir=$DDIR4 --socket=node.ipc --publickeys=node.pub --privatekeys=node.key --othernodes=https://127.0.0.1:9000/ 2>>~/blockcheq/logs/constellation_$NODE_NAME.log &
+nohup constellation-node --url=https://$CURRENT_HOST_IP:9003/ --port=9003 --workdir=$DDIR4 --socket=node.ipc --publickeys=node.pub --privatekeys=node.key --othernodes=https://$CURRENT_HOST_IP:9000/ 2>>~/blockcheq/logs/constellation_$NODE_NAME.log &
 sleep 2
 
 echo "[*] Starting Ethereum nodes"
