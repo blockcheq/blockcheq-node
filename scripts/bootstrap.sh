@@ -2,11 +2,12 @@
 
 set -e
 
+DIR=`echo $PWD | xargs dirname | xargs dirname`
 OS=$(cat /etc/os-release | grep "^ID=" | sed 's/ID=//g' | sed 's\"\\g')
 if [ $OS = "centos" ] || [ $OS = "rhel" ];then
   echo "Installing the environment in $OS"  
 
-  GOREL="go1.9.3.linux-amd64.tar.gz"
+  GOREL="go1.9.5.linux-amd64.tar.gz"
 
   #install Go
   if ! type "go" > /dev/null; then
@@ -16,6 +17,7 @@ if [ $OS = "centos" ] || [ $OS = "rhel" ];then
     sudo yum -y install wget
     wget -q "https://storage.googleapis.com/golang/${GOREL}"
     tar -xvzf "${GOREL}"
+    rm -Rf /usr/local/go
     sudo mv go /usr/local/go
     sudo rm "${GOREL}"
   else
@@ -52,11 +54,6 @@ if [ $OS = "centos" ] || [ $OS = "rhel" ];then
     sudo yum -y install epel-release
   fi
 
-  echo "Installing WRK"
-  git clone https://github.com/wg/wrk.git wrk
-  cd wrk
-  make
-  sudo cp wrk /usr/local/bin
   echo "Installing LIBSODIUM"
   wget https://github.com/naphaso/jsodium/raw/master/native/linux/libsodium.so.18
   sudo chmod 755 libsodium.so.18
@@ -71,6 +68,7 @@ if [ $OS = "centos" ] || [ $OS = "rhel" ];then
   echo "Installing LEVELDB"
   git clone https://github.com/google/leveldb.git
   cd leveldb/
+  git checkout 0fa5a4f
   make
   sudo scp -r out-static/lib* out-shared/lib* /usr/local/lib/
   sudo cp /usr/local/lib/libleveldb.* /usr/lib64/
@@ -107,7 +105,7 @@ if [ $OS = "centos" ] || [ $OS = "rhel" ];then
   echo "Installing QUORUM"
   git clone https://github.com/jpmorganchase/quorum.git
   pushd quorum >/dev/null
-  git checkout tags/v2.0.1
+  git checkout af59943283e1abb39b4e4a27ec0062d59f3291ec  
   make all
   sudo cp build/bin/geth /usr/local/bin
   sudo cp build/bin/bootnode /usr/local/bin
@@ -122,7 +120,7 @@ if [ $OS = "centos" ] || [ $OS = "rhel" ];then
 elif [ $OS = "ubuntu" ];then
   echo "Installing the environment in $OS" 
 
-  GOREL="go1.7.3.linux-amd64.tar.gz"
+  GOREL="go1.9.5.linux-amd64.tar.gz"
 
   # Do not mess with Go instalations
   if ! type "go" > /dev/null; then
@@ -131,6 +129,7 @@ elif [ $OS = "ubuntu" ];then
     echo "Installing GO"
     wget -q "https://storage.googleapis.com/golang/${GOREL}"
     tar -xvzf "${GOREL}"
+    sudo rm -rf /usr/local/go
     mv go /usr/local/go
     sudo rm "${GOREL}"
   else
@@ -151,9 +150,17 @@ elif [ $OS = "ubuntu" ];then
   # install libraries
   sudo apt-get install -y software-properties-common unzip wget git make gcc libsodium-dev build-essential libdb-dev zlib1g-dev libtinfo-dev sysvbanner wrk psmisc
 
+  echo "Installing wrk"
+  rm -rf wrk
+  git clone https://github.com/wg/wrk.git wrk
+  cd wrk
+  make
+  sudo cp wrk /usr/local/bin
+
   # LEVELDB FIX
   git clone https://github.com/google/leveldb.git
   cd leveldb/
+  git checkout 0fa5a4f
   make
   sudo scp -r out-static/lib* out-shared/lib* /usr/local/lib/
   cd include/
@@ -175,7 +182,7 @@ elif [ $OS = "ubuntu" ];then
   # install Quorum
   git clone https://github.com/jpmorganchase/quorum.git
 
-  cd quorum && git checkout v2.0.1 && make all &&  cp build/bin/geth /usr/local/bin && cp build/bin/bootnode /usr/local/bin
+  cd quorum && git checkout v2.0.2 && make all &&  cp build/bin/geth /usr/local/bin && cp build/bin/bootnode /usr/local/bin
 
   cd ..
   sudo rm -rf constellation-0.3.2-ubuntu1604.tar.xz constellation-0.3.2-ubuntu1604.tar constellation-0.3.2-ubuntu1604 quorum
@@ -184,12 +191,12 @@ fi
 
 # Manage GOROOT variable
 if [[ -z "$GOROOT" ]]; then
-    echo "[*] Trying default $GOROOT. If the script fails please run $HOME/blockcheq-node/bootstrap.sh or configure GOROOT correctly"
-    echo 'export GOROOT=/usr/local/go' >> $HOME/.bashrc
-    echo 'export GOPATH=$HOME/blockcheq/workspace' >> $HOME/.bashrc
-    echo 'export PATH=$GOROOT/bin:$GOPATH/bin:$PATH' >> $HOME/.bashrc
+    echo "[*] Trying default $GOROOT. If the script fails please run $DIR/blockcheq-node/bootstrap.sh or configure GOROOT correctly"
+    echo 'export GOROOT=/usr/local/go' >> $DIR/.bashrc
+    echo 'export GOPATH=$DIR/blockcheq/workspace' >> $DIR/.bashrc
+    echo 'export PATH=$GOROOT/bin:$GOPATH/bin:$PATH' >> $DIR/.bashrc
     export GOROOT=/usr/local/go
-    export GOPATH=$HOME/blockcheq/workspace
+    export GOPATH=$DIR/blockcheq/workspace
     export PATH=$GOROOT/bin:$GOPATH/bin:$PATH
 
     echo "[*] GOROOT = $GOROOT, GOPATH = $GOPATH"
@@ -197,6 +204,6 @@ if [[ -z "$GOROOT" ]]; then
     mkdir -p "$GOPATH"/bin
     mkdir -p "$GOPATH"/src
 fi
-sudo chown -R $USER:$USER ~/blockcheq/
+sudo chown -R $USER:$USER $DIR/blockcheq/
 
 set +e
