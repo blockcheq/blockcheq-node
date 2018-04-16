@@ -138,7 +138,7 @@ echo "$NODE_TYPE" > ~/blockcheq/data/NODE_TYPE
 echo "$ACCOUNT_PASSWORD"  > ~/blockcheq/data/passwords.txt
 
 echo "[*] Initializing quorum"
-if [[ "$CURRENT_HOST_IP" == "10.0.3.81" ]]; then
+if [[ "$CURRENT_HOST_IP" == "10.0.3.5" ]]; then
     # cp ~/blockcheq-node/data/keystore/UTC--2017-01-05T12-57-49.038440259Z--e97b27174703f8f1c6a417c0605380815f4e7aa4 ~/blockcheq/data/keystore
     cp ~/blockcheq-node/data/keystore/key1 ~/blockcheq/data/keystore
     cp ~/blockcheq-node/data/keys/nodekey1 ~/blockcheq/data/geth/nodekey
@@ -167,16 +167,16 @@ if ( [ "backup" != "$1" ]); then
     update_nodes_list "enode://${ENODE_KEY}@${CURRENT_HOST_IP}:21000?discport=0"
 fi
 cd ~
-# if [[ "$CURRENT_HOST_IP" == "10.0.3.81" ]]; then
+# if [[ "$CURRENT_HOST_IP" == "10.0.3.5" ]]; then
 #     cp ~/blockcheq-node/data/static-nodes.json ~/blockcheq/data/static-nodes.json
 #     cp ~/blockcheq-node/data/static-nodes.json ~/blockcheq/data/permissioned-nodes.json
 # else 
-if [[ "$CURRENT_HOST_IP" != "10.0.3.81" ]]; then
+if [[ "$CURRENT_HOST_IP" != "10.0.3.5" ]]; then
     cp ~/blockcheq-node/data/permissioned-nodes.json ~/blockcheq/data/permissioned-nodes.json
     cp ~/blockcheq-node/data/permissioned-nodes.json ~/blockcheq/data/static-nodes.json
 fi
 
-if [[ "$CURRENT_HOST_IP" != "10.0.3.81" ]]; then
+if [[ "$CURRENT_HOST_IP" != "10.0.3.5" ]]; then
     echo  "     Definida contraseña por defecto para cuenta principal como: $ACCOUNT_PASSWORD."
     echo $ACCOUNT_PASSWORD > ./account_pass
     geth --datadir ~/blockcheq/data --password ./account_pass account new

@@ -2,12 +2,12 @@
 set -u
 set -e
 
-CURRENT_HOST_IP="10.0.3.81"
+CURRENT_HOST_IP="10.0.3.5"
 
 echo "[*] Starting Constellation nodes"
 NODE_NAME="general1"
 DDIR1=~/blockcheq/data/"$NODE_NAME"/constellation
-#CMD="constellation-node --url=https://10.0.3.81:9000/ --port=9000 --workdir=$DDIR --socket=node.ipc --publickeys=node.pub --privatekeys=node.key --othernodes=https://10.0.3.81:9001/"
+#CMD="constellation-node --url=https://10.0.3.5:9000/ --port=9000 --workdir=$DDIR --socket=node.ipc --publickeys=node.pub --privatekeys=node.key --othernodes=https://10.0.3.5:9001/"
 #echo "$CMD >> ~/blockcheq/logs/constellation_$NODE_NAME.log 2>&1 &"
 #$CMD 2>> "~/blockcheq/logs/constellation_$NODE_NAME.log" 2>&1 &
 nohup constellation-node --url=https://$CURRENT_HOST_IP:9000/ --port=9000 --workdir=$DDIR1 --socket=node.ipc --publickeys=node.pub --privatekeys=node.key --othernodes=https://$CURRENT_HOST_IP:9000/ 2>>~/blockcheq/logs/constellation_$NODE_NAME.log &
