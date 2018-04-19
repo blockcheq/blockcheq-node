@@ -32,7 +32,8 @@ echo "[*] Starting Ethereum nodes"
 
 set -v
 
-ARGS="--syncmode full --mine --rpc --rpcaddr 0.0.0.0 --rpcapi admin,db,eth,debug,miner,net,shh,txpool,personal,web3,quorum,istanbul"
+NETID=953575359
+ARGS="--networkid $NETID --syncmode full --mine --rpc --rpcaddr 0.0.0.0 --rpcapi admin,db,eth,debug,miner,net,shh,txpool,personal,web3,quorum,istanbul"
 nohup geth --datadir ~/blockcheq/data/validator $ARGS --rpcport 22000 --port 21000 --unlock 0 --password passwords.txt 2>>~/blockcheq/logs/validator.log &
 sleep 2
 PRIVATE_CONFIG=~/blockcheq/data/general1/constellation/node.ipc nohup geth --datadir ~/blockcheq/data/general1 $ARGS --rpcport 22001 --port 21001 2>>~/blockcheq/logs/general1.log &
