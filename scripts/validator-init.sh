@@ -12,6 +12,10 @@ echo "[*] Configuring node $NODE_NAME"
 mkdir -p ~/blockcheq/data/"$NODE_NAME"/{keystore,geth,constellation}
 mkdir -p ~/blockcheq/data/"$NODE_NAME"/constellation/{data,keystore}
 cp ~/blockcheq-node/data/keystore/key1 ~/blockcheq/data/"$NODE_NAME"/keystore
+cp ~/blockcheq-node/data/keystore/key546 ~/blockcheq/data/"$NODE_NAME"/keystore
+cp ~/blockcheq-node/data/keystore/keya28 ~/blockcheq/data/"$NODE_NAME"/keystore
+cp ~/blockcheq-node/data/keystore/keyaa4 ~/blockcheq/data/"$NODE_NAME"/keystore
+cp ~/blockcheq-node/data/keystore/key478 ~/blockcheq/data/"$NODE_NAME"/keystore
 cp ~/blockcheq-node/data/keys/nodekey1 ~/blockcheq/data/"$NODE_NAME"/geth/nodekey
 cp ~/blockcheq-node/data/static-nodes.json ~/blockcheq/data/"$NODE_NAME"/static-nodes.json
 cp ~/blockcheq-node/data/static-nodes.json ~/blockcheq/data/"$NODE_NAME"/permissioned-nodes.json
