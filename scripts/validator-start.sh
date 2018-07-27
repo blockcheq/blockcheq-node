@@ -2,7 +2,7 @@
 set -u
 set -e
 
-CURRENT_HOST_IP="10.0.3.5"
+CURRENT_HOST_IP="10.20.0.12"
 
 echo "[*] Starting Constellation nodes"
 NODE_NAME="general1"
