@@ -73,7 +73,7 @@ console.log("Checks added ");
 
 // print info
 console.log("----------------------- CONTRACTS ----------------------");
-console.log("Blockbank deployed at " + blockBank.address);
+console.log("Blockbank deployed at " + blockbank.address);
 console.log("First BlockCheck deployed at " + blockcheq1.address);
 console.log("Second BlockCheck deployed at " + blockcheq2.address);
 console.log("----------------------- ACCOUNTS -----------------------");
