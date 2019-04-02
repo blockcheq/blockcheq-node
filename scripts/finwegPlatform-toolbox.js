@@ -17,31 +17,28 @@ var bankCode = "2038";
 var bankName = "Bankia";
 var codePosition = 0;
 var decimalUnits = 2;
-var tokenSymbol = "â‚¬";
+var tokenSymbol = "€";
 var demo = true;
 
 var owner  = web3.personal.listAccounts[0];
-var bank1Eth = web3.personal.listAccounts[1];
-var user1Addr  = web3.personal.listAccounts[2];
-var user2Addr  = web3.personal.listAccounts[3];
+var bank1Eth = web3.personal.listAccounts[0];
+var user1Addr  = web3.personal.listAccounts[1];
+var user2Addr  = web3.personal.listAccounts[2];
 
 
 console.log("Unlocking owner");
-web3.personal.unlockAccount(owner, "", 15000);
 console.log("Unlocking bank1Eth");
-web3.personal.unlockAccount(bank1Eth, "garfield123", 15000);
+web3.personal.unlockAccount(owner, "", 15000);
 console.log("Unlocking user1Addr");
 web3.personal.unlockAccount(user1Addr, "garfield123", 15000);
 console.log("Unlocking user2Addr");
 web3.personal.unlockAccount(user2Addr, "garfield123", 15000);
 
-
 var user1Id = "98765432M";
 var user2Id = "23456789D";
 
-
-var account1 = "20380001012345678901";
-var account2 = "20380002987654321098";
+var account1 = "20381540991111111111";
+var account2 = "20381540882222222222";
 
 var platformClientContract = web3.eth.contract(PlatformClientCompiled.abi);
 var platformManagerContract = web3.eth.contract(PlatformManagerCompiled.abi);
@@ -194,7 +191,7 @@ var setAddrs = function(data) {
 
 var init = function() {
     setContracts();
-   console.log('Add bank');
+    console.log('Add bank ' + bankCode);
     //console.log('bankCode :' + web3.fromAscii(bankCode));
     //console.log('bankName :' + web3.fromAscii(bankName));
     //console.log('bank1Eth: ' + bank1Eth);
@@ -203,16 +200,18 @@ var init = function() {
     var idBank = platformManager.addBank( web3.fromAscii(bankCode),  web3.fromAscii(bankName), bank1Eth, platformClient.address, {from:owner, gas:transGas});
     //console.log('idBank: ' + idBank);
     //console.log('Bank Length: ' + platformManager.getBanksLength);
-    console.log("Bank added");
+    console.log('Bank ' + bankCode + ' added');
     //console.log('Add accounts');
     //console.log('user1Addr : ' + user1Addr);
     //console.log('account1: ' + web3.fromAscii(account1));
-    platformClient.addAccount(user1Addr, str2DoubleB32(account1), 300000000000, {from:bank1Eth, gas:transGas});
+    console.log('Add account ' + account1 + ' with address ' + user1Addr);
+    platformClient.addAccount(user1Addr, web3.fromAscii(account1), 300000000000, {from:bank1Eth, gas:transGas});
     //var accs =  platformClient.accounts
     //console.log("Accounts length: " + accs);
     //console.log('user2Addr : ' + user2Addr);
     //console.log('account2: ' + web3.fromAscii(account2));
-    platformClient.addAccount(user2Addr,str2DoubleB32(account2), 300000000000, {from:bank1Eth, gas:transGas});
+    console.log('Add account ' + account2 + ' with address ' + user2Addr);
+    platformClient.addAccount(user2Addr, web3.fromAscii(account2), 300000000000, {from:bank1Eth, gas:transGas});
     //var accs =  platformClient.accounts
     //console.log("Accounts length: " + accs);
     console.log("Accounts added");
