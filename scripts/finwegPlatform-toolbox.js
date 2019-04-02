@@ -17,7 +17,7 @@ var bankCode = "2038";
 var bankName = "Bankia";
 var codePosition = 0;
 var decimalUnits = 2;
-var tokenSymbol = "€";
+var tokenSymbol = "â‚¬";
 var demo = true;
 
 var owner  = web3.personal.listAccounts[0];
@@ -205,13 +205,13 @@ var init = function() {
     //console.log('user1Addr : ' + user1Addr);
     //console.log('account1: ' + web3.fromAscii(account1));
     console.log('Add account ' + account1 + ' with address ' + user1Addr);
-    platformClient.addAccount(user1Addr, web3.fromAscii(account1), 300000000000, {from:bank1Eth, gas:transGas});
+    platformClient.addAccount(user1Addr, str2DoubleB32(account1), 300000000000, {from:bank1Eth, gas:transGas});
     //var accs =  platformClient.accounts
     //console.log("Accounts length: " + accs);
     //console.log('user2Addr : ' + user2Addr);
     //console.log('account2: ' + web3.fromAscii(account2));
     console.log('Add account ' + account2 + ' with address ' + user2Addr);
-    platformClient.addAccount(user2Addr, web3.fromAscii(account2), 300000000000, {from:bank1Eth, gas:transGas});
+    platformClient.addAccount(user2Addr, str2DoubleB32(account2), 300000000000, {from:bank1Eth, gas:transGas});
     //var accs =  platformClient.accounts
     //console.log("Accounts length: " + accs);
     console.log("Accounts added");
