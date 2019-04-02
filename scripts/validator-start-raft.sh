@@ -2,7 +2,7 @@
 set -u
 set -e
 
-CURRENT_HOST_IP="10.0.3.65"
+CURRENT_HOST_IP="10.0.3.5"
 
 echo "[*] Starting Constellation nodes"
 NODE_NAME="general1"
@@ -32,7 +32,7 @@ echo "[*] Starting Ethereum nodes"
 
 set -v
 
-NETID=953575359
+NETID=953575379
 ARGS="--networkid $NETID --unlock 0 --password passwords.txt --raft --rpc --rpcaddr 0.0.0.0 --rpcapi admin,db,eth,debug,miner,net,shh,txpool,personal,web3,quorum --emitcheckpoints"
 
 nohup geth --datadir ~/blockcheq/data/validator $ARGS --permissioned --raftport 50401 --rpcport 22000 --port 21000 2>>~/blockcheq/logs/validator.log &
