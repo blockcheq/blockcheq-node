@@ -8,8 +8,13 @@ var PlatformManagerCompiled = {"abi":[{"constant":true,"inputs":[{"name":"accoun
 
 var pocBankia = true;
 
-var platformClientAddressDefault = "0x9d13c6d3afe1721beef56b55d303b09e021e27ab";
-var platformManagerAddressDefault = "0x1349f3e1b8d71effb47b840594ff27da7e603d17";
+if (pocBankia) {
+    var platformClientAddressDefault = "0xee02919a1fc709bce16f6bd13ede083f0d32449b";
+    var platformManagerAddressDefault = "0x1932c48b2bf8102ba33b4a6b545c32236e342f34";
+} else {
+    var platformClientAddressDefault = "0x9d13c6d3afe1721beef56b55d303b09e021e27ab";
+    var platformManagerAddressDefault = "0x1349f3e1b8d71effb47b840594ff27da7e603d17";
+}
 
 var platformClientAddress = "";
 var platformManagerAddress = "";
@@ -26,6 +31,8 @@ if (pocBankia) {
 	var bank1Eth = web3.personal.listAccounts[0];
 	var user1Addr  = web3.personal.listAccounts[1];
 	var user2Addr  = web3.personal.listAccounts[2];
+    var user3Addr  = web3.personal.listAccounts[3];
+    var user4Addr  = web3.personal.listAccounts[4];
 } else {
 	var bank1Eth = web3.personal.listAccounts[1];
 	var user1Addr  = web3.personal.listAccounts[2];
@@ -43,17 +50,24 @@ web3.personal.unlockAccount(user1Addr, "garfield123", 15000);
 console.log("Unlocking user2Addr");
 web3.personal.unlockAccount(user2Addr, "garfield123", 15000);
 
-var user1Id = "98765432M";
-var user2Id = "23456789D";
 
 if (pocBankia) {
-	var account1 = "20381540991111111111";
-	var account2 = "20381540882222222222";
+    var user1Id = "06270711Z";
+    var user2Id = "51903620A";
+    var user3Id = "98765432M";
+    var user4Id = "23456789D";
+
+    var account1 = "ES6220381540666000603516";
+    var account2 = "ES5620381004763010063771";
+	var account3 = "20381540991111111111";
+	var account4 = "20381540882222222222";
 } else {
+    var user1Id = "98765432M";
+    var user2Id = "23456789D";
+
 	var account1 = "20380001012345678901";
 	var account2 = "20380002987654321098";
 }
-
 
 var platformClientContract = web3.eth.contract(PlatformClientCompiled.abi);
 var platformManagerContract = web3.eth.contract(PlatformManagerCompiled.abi);
@@ -229,6 +243,14 @@ var init = function() {
     platformClient.addAccount(user2Addr,str2DoubleB32(account2), 300000000000, {from:bank1Eth, gas:transGas});
     //var accs =  platformClient.accounts
     //console.log("Accounts length: " + accs);
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////
+    if (pocBankia) {
+        console.log('Add account ' + account3 + ' with address ' + user3Addr);
+        platformClient.addAccount(user3Addr, str2DoubleB32(account3), 300000000000, {from:bank1Eth, gas:transGas});
+        console.log('Add account ' + account4 + ' with address ' + user4Addr);
+        platformClient.addAccount(user4Addr,str2DoubleB32(account4), 300000000000, {from:bank1Eth, gas:transGas});
+    }
+    
     console.log("Accounts added");
     info();
     infoUsers();
