@@ -33,6 +33,8 @@ if (pocBankia) {
 	var user2Addr  = web3.personal.listAccounts[2];
     var user3Addr  = web3.personal.listAccounts[3];
     var user4Addr  = web3.personal.listAccounts[4];
+    var user5Addr  = web3.personal.listAccounts[5];
+    var user6Addr  = web3.personal.listAccounts[6];
 } else {
 	var bank1Eth = web3.personal.listAccounts[1];
 	var user1Addr  = web3.personal.listAccounts[2];
@@ -54,13 +56,17 @@ web3.personal.unlockAccount(user2Addr, "garfield123", 15000);
 if (pocBankia) {
     var user1Id = "06270711Z";
     var user2Id = "51903620A";
-    var user3Id = "98765432M";
-    var user4Id = "23456789D";
+    var user3Id = "51447929B";
+    var user4Id = "32690746H";
+    var user5Id = "98765432M";
+    var user6Id = "23456789D";
 
     var account1 = "20381540666000603516";
     var account2 = "20381004763010063771";
-	var account3 = "20381540991111111111";
-	var account4 = "20381540882222222222";
+	var account3 = "20381540613000417116";
+	var account4 = "20384000453000324824";
+    var account5 = "20381540991111111111";
+    var account6 = "20381540882222222222";
 } else {
     var user1Id = "98765432M";
     var user2Id = "23456789D";
@@ -249,6 +255,10 @@ var init = function() {
         platformClient.addAccount(user3Addr, str2DoubleB32(account3), 300000000000, {from:bank1Eth, gas:transGas});
         console.log('Add account ' + account4 + ' with address ' + user4Addr);
         platformClient.addAccount(user4Addr,str2DoubleB32(account4), 300000000000, {from:bank1Eth, gas:transGas});
+        console.log('Add account ' + account5 + ' with address ' + user5Addr);
+        platformClient.addAccount(user5Addr, str2DoubleB32(account5), 300000000000, {from:bank1Eth, gas:transGas});
+        console.log('Add account ' + account6 + ' with address ' + user6Addr);
+        platformClient.addAccount(user6Addr,str2DoubleB32(account6), 300000000000, {from:bank1Eth, gas:transGas});
     }
     
     console.log("Accounts added");
