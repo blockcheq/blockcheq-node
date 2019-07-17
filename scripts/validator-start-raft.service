@@ -1,0 +1,12 @@
+[Unit]
+Description=Quorum Testnet start service
+
+[Service]
+User=blockcheq
+Group=blockcheq
+Type=forking
+ExecStart=/home/blockcheq//blockcheq-node/scripts/validator-start-raft-service.sh
+ExecStop=/home/blockcheq//blockcheq-node/scripts/stop.sh
+
+[Install]
+WantedBy=multi-user.target
