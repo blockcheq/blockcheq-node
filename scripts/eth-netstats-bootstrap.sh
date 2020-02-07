@@ -93,6 +93,16 @@ function startService {
   echo "'Ethereum Network Stats Service' started." 
 }
 
+function configureFirewall {
+
+  echo "[*] Opening port 3000 in firewall" 
+  cd ~/blockcheq-node/scripts/
+  superuser firewall-cmd --zone=public --add-port=3000/tcp --permanent
+  superuser firewall-cmd --reload
+  
+  echo "Firewall configured." 
+}
+
 function installEthMonitor {
   set -e
 
@@ -111,6 +121,7 @@ function installEthMonitor {
   installEthNetstats
   installService
   startService
+  configureFirewall
   
   set +e
 }
