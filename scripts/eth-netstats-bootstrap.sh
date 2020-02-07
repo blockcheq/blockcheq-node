@@ -84,6 +84,15 @@ function installService {
   echo "'Ethereum Network Stats Service' installed." 
 }
 
+function startService {
+
+  echo "[*] Starting Ethereum Network Stats Service" 
+  cd ~/blockcheq-node/scripts/
+  superuser systemctl start eth-netstats.service
+
+  echo "'Ethereum Network Stats Service' started." 
+}
+
 function installEthMonitor {
   set -e
 
@@ -101,6 +110,7 @@ function installEthMonitor {
   installPm2
   installEthNetstats
   installService
+  startService
   
   set +e
 }
