@@ -1,0 +1,12 @@
+[Unit]
+Description=Ethereum Network Stats start service
+
+[Service]
+User=blockcheq
+Group=blockcheq
+Type=forking
+ExecStart=/home/blockcheq/blockcheq-node/scripts/eth-netstats-start.sh
+ExecStop=/home/blockcheq/blockcheq-node/scripts/eth-netstats-stop.sh
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,112 @@
+[
+  {
+    "name"              : "node-validator",
+    "script"            : "app.js",
+    "log_date_format"   : "YYYY-MM-DD HH:mm Z",
+    "merge_logs"        : false,
+    "watch"             : false,
+    "max_restarts"      : 10,
+    "exec_interpreter"  : "node",
+    "exec_mode"         : "fork_mode",
+    "env":
+    {
+      "NODE_ENV"        : "production",
+      "RPC_HOST"        : "localhost",
+      "RPC_PORT"        : "22000",
+      "LISTENING_PORT"  : "21000",
+      "INSTANCE_NAME"   : "Validator Node",
+      "CONTACT_DETAILS" : "",
+      "WS_SERVER"       : "http://localhost:3000",
+      "WS_SECRET"       : "mysecret",
+      "VERBOSITY"       : 2
+    }
+  },
+  {
+    "name"              : "node-general1",
+    "script"            : "app.js",
+    "log_date_format"   : "YYYY-MM-DD HH:mm Z",
+    "merge_logs"        : false,
+    "watch"             : false,
+    "max_restarts"      : 10,
+    "exec_interpreter"  : "node",
+    "exec_mode"         : "fork_mode",
+    "env":
+    {
+      "NODE_ENV"        : "production",
+      "RPC_HOST"        : "localhost",
+      "RPC_PORT"        : "22001",
+      "LISTENING_PORT"  : "21001",
+      "INSTANCE_NAME"   : "General1 Node",
+      "CONTACT_DETAILS" : "",
+      "WS_SERVER"       : "http://localhost:3000",
+      "WS_SECRET"       : "mysecret",
+      "VERBOSITY"       : 2
+    }
+  },
+  {
+    "name"              : "node-general2",
+    "script"            : "app.js",
+    "log_date_format"   : "YYYY-MM-DD HH:mm Z",
+    "merge_logs"        : false,
+    "watch"             : false,
+    "max_restarts"      : 10,
+    "exec_interpreter"  : "node",
+    "exec_mode"         : "fork_mode",
+    "env":
+    {
+      "NODE_ENV"        : "production",
+      "RPC_HOST"        : "localhost",
+      "RPC_PORT"        : "22002",
+      "LISTENING_PORT"  : "21002",
+      "INSTANCE_NAME"   : "General2 Node",
+      "CONTACT_DETAILS" : "",
+      "WS_SERVER"       : "http://localhost:3000",
+      "WS_SECRET"       : "mysecret",
+      "VERBOSITY"       : 2
+    }
+  },
+  {
+    "name"              : "node-general3",
+    "script"            : "app.js",
+    "log_date_format"   : "YYYY-MM-DD HH:mm Z",
+    "merge_logs"        : false,
+    "watch"             : false,
+    "max_restarts"      : 10,
+    "exec_interpreter"  : "node",
+    "exec_mode"         : "fork_mode",
+    "env":
+    {
+      "NODE_ENV"        : "production",
+      "RPC_HOST"        : "localhost",
+      "RPC_PORT"        : "22003",
+      "LISTENING_PORT"  : "21003",
+      "INSTANCE_NAME"   : "General3 Node",
+      "CONTACT_DETAILS" : "",
+      "WS_SERVER"       : "http://localhost:3000",
+      "WS_SECRET"       : "mysecret",
+      "VERBOSITY"       : 2
+    }
+  },
+  {
+    "name"              : "node-general4",
+    "script"            : "app.js",
+    "log_date_format"   : "YYYY-MM-DD HH:mm Z",
+    "merge_logs"        : false,
+    "watch"             : false,
+    "max_restarts"      : 10,
+    "exec_interpreter"  : "node",
+    "exec_mode"         : "fork_mode",
+    "env":
+    {
+      "NODE_ENV"        : "production",
+      "RPC_HOST"        : "localhost",
+      "RPC_PORT"        : "22004",
+      "LISTENING_PORT"  : "21004",
+      "INSTANCE_NAME"   : "General4 Node",
+      "CONTACT_DETAILS" : "",
+      "WS_SERVER"       : "http://localhost:3000",
+      "WS_SECRET"       : "mysecret",
+      "VERBOSITY"       : 2
+    }
+  }      
+]
