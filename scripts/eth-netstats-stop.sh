@@ -3,14 +3,14 @@ set -u
 set -e
 
 echo "[*] Switching to Ethereum Network Intelligence API directory" 
-cd /home/blockcheq/eth-net-intelligence-api
+cd /home/boksgsadmin/eth-net-intelligence-api
 
 echo "[*] Stopping Ethereum Network Intelligence API (Classic)" 
 pm2 kill &>> ~/blockcheq/logs/eth-net-intelligence-api.log 
 sleep 1
 
 echo "[*] Switching to Ethereum Network Stats directory" 
-cd /home/blockcheq/eth-netstats
+cd /home/boksgsadmin/eth-netstats
 
 echo "[*] Stopping Ethereum Network Stats Application" 
 pkill -f node

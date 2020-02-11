@@ -6,7 +6,7 @@ set -e
 CURRENT_HOST_IP=$(hostname -i)
 
 echo "[*] Switching to Ethereum Network Intelligence API directory" 
-cd /home/blockcheq/eth-net-intelligence-api
+cd /home/boksgsadmin/eth-net-intelligence-api
 
 echo "[*] Starting Ethereum Network Intelligence API (Classic)" 
 #pm2 start eth-netstats-nodes.json 2>>~/blockcheq/logs/eth-net-intelligence-api.log 
@@ -15,7 +15,7 @@ sleep 2
 #pm2 list &> ~/blockcheq/logs/eth-net-intelligence-api.log 
 
 echo "[*] Switching to Ethereum Network Stats directory" 
-cd /home/blockcheq/eth-netstats
+cd /home/boksgsadmin/eth-netstats
 
 echo "[*] Starting Ethereum Network Stats App" 
 #set -v
