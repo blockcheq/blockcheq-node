@@ -2,11 +2,11 @@
 Description=Ethereum Network Stats start service
 
 [Service]
-User=blockcheq
-Group=blockcheq
+User=boksgsadmin
+Group=boksgsadmin
 Type=forking
-ExecStart=/home/blockcheq/blockcheq-node/scripts/eth-netstats-start.sh
-ExecStop=/home/blockcheq/blockcheq-node/scripts/eth-netstats-stop.sh
+ExecStart=/home/boksgsadmin/blockcheq-node/scripts/eth-netstats-start.sh
+ExecStop=/home/boksgsadmin/blockcheq-node/scripts/eth-netstats-stop.sh
 
 [Install]
 WantedBy=multi-user.target
