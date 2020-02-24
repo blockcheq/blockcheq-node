@@ -60,7 +60,7 @@ console.log("Unlocking user3Addr");
 web3.personal.unlockAccount(user3Addr, "garfield123", 15000);
 
 var account1 = "99990001012345678901";
-var account2 = "99990002987654321098";
+var account2 = "99990001987654321098";
 var account3 = "";
 var account4 = "";
 var account5 = "";
@@ -68,7 +68,7 @@ var account6 = "";
 
 var codeline1 = '9999800018111111111119959111';
 var codeline2 = '999900018111111111119592221';
-var codeline3 = '999900028222222222229933312';
+var codeline3 = '999900018222222222229933312';
 var codeline4 = '999900018111111111119959113';
 
 var bankerContract = web3.eth.contract(BankerCompiled.abi);
@@ -525,7 +525,7 @@ var initDemo = function() {
     initBanks(checkmanager1, regulator, accountstore1, bankstore, checkstore1, bankCode1,  bankName1, bank1Eth, banker1.address);
 
     account1 = "99990001012345678901";
-    account2 = "99990002987654321098";
+    account2 = "99990001987654321098";
     account3 = "";
     account4 = "";
     account5 = "";
