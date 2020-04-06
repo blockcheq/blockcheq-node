@@ -162,9 +162,9 @@ if ( [ "dockerfile" == "$1" ]); then
     ENODE_KEY=$(bootnode -nodekey ~/blockcheq-node/data/keys/data/geth/nodekey -writeaddress)
 fi
 
-echo "ENODE -> 'enode://${ENODE_KEY}@${CURRENT_HOST_IP}:21000?discport=0'"
+echo "ENODE -> 'enode://${ENODE_KEY}@${CURRENT_HOST_IP}:21000?discport=0&raftport=50401'"
 if ( [ "backup" != "$1" ]); then
-    update_nodes_list "enode://${ENODE_KEY}@${CURRENT_HOST_IP}:21000?discport=0"
+    update_nodes_list "enode://${ENODE_KEY}@${CURRENT_HOST_IP}:21000?discport=0&raftport=50401"
 fi
 cd ~
 # if [[ "$CURRENT_HOST_IP" == "10.20.0.12" ]]; then
@@ -173,7 +173,7 @@ cd ~
 # else 
 if [[ "$CURRENT_HOST_IP" != "10.20.0.12" ]]; then
     cp ~/blockcheq-node/data/permissioned-nodes.json ~/blockcheq/data/permissioned-nodes.json
-    cp ~/blockcheq-node/data/permissioned-nodes.json ~/blockcheq/data/static-nodes.json
+    cp ~/blockcheq-node/data/static-nodes.json ~/blockcheq/data/static-nodes.json
 fi
 
 if [[ "$CURRENT_HOST_IP" != "10.20.0.12" ]]; then
