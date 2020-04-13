@@ -39,6 +39,8 @@ if ( [ "backup" == "$1" ]); then
     mkdir ~/blockcheq-keysBackup/data/constellation
     echo "Saving constellation keys ..."
     cp -r ~/blockcheq/data/constellation/keystore ~/blockcheq-keysBackup/data/constellation/
+    echo "Saving constellation configuration ..."
+    cp ~/blockcheq/data/constellation/constellation.conf ~/blockcheq-keysBackup/data/constellation/constellation.conf
     echo "Saving node keys ..."
     cp -r ~/blockcheq/data/keystore ~/blockcheq-keysBackup/data
     echo "Saving enode ID ..."
@@ -202,6 +204,8 @@ if ( [ "backup" == "$1" ]); then
 
     echo "Recovering constellation keys ..."
     cp -rf ~/blockcheq-keysBackup/data/constellation/keystore ~/blockcheq/data/constellation/
+    echo "Recovering constellation configuration ..."
+    cp  ~/blockcheq-keysBackup/data/constellation/constellation.conf ~/blockcheq/data/constellation/constellation.conf
     echo "Recovering node keys ..."
     cp -rf ~/blockcheq-keysBackup/data/keystore ~/blockcheq/data/ 
     echo "Recovering enode ID ..."
