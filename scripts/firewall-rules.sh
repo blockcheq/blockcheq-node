@@ -22,6 +22,8 @@ sudo firewall-cmd --add-port=21003/tcp --permanent
 sudo firewall-cmd --add-port=21003/udp --permanent
 sudo firewall-cmd --add-port=21004/tcp --permanent
 sudo firewall-cmd --add-port=21004/udp --permanent
+sudo firewall-cmd --reload
+sudo firewall-cmd  --zone=public --list-ports
 
 set +u
 set +e
