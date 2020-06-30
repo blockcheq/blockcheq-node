@@ -4,8 +4,16 @@ set -e
 
 CURRENT_HOST_IP="10.0.0.2"
 
+echo "[*] Setting validator node"
+NODE_NAME="validator"
+cp ~/blockcheq-node/data/static-nodes.json ~/blockcheq/data/"$NODE_NAME"/static-nodes.json
+cp ~/blockcheq-node/data/permissioned-nodes.json ~/blockcheq/data/"$NODE_NAME"/permissioned-nodes.json
+
+
 echo "[*] Starting Constellation nodes"
 NODE_NAME="general1"
+cp ~/blockcheq-node/data/static-nodes.json ~/blockcheq/data/"$NODE_NAME"/static-nodes.json
+cp ~/blockcheq-node/data/permissioned-nodes.json ~/blockcheq/data/"$NODE_NAME"/permissioned-nodes.json
 DDIR1=~/blockcheq/data/"$NODE_NAME"/constellation
 #CMD="constellation-node --url=https://10.0.3.5:9000/ --port=9000 --workdir=$DDIR --socket=node.ipc --publickeys=node.pub --privatekeys=node.key --othernodes=https://10.0.3.5:9001/"
 #echo "$CMD >> ~/blockcheq/logs/constellation_$NODE_NAME.log 2>&1 &"
@@ -14,16 +22,22 @@ nohup constellation-node --url=https://$CURRENT_HOST_IP:9000/ --port=9000 --work
 sleep 3
 
 NODE_NAME="general2"
+cp ~/blockcheq-node/data/static-nodes.json ~/blockcheq/data/"$NODE_NAME"/static-nodes.json
+cp ~/blockcheq-node/data/permissioned-nodes.json ~/blockcheq/data/"$NODE_NAME"/permissioned-nodes.json
 DDIR2=~/blockcheq/data/"$NODE_NAME"/constellation
 nohup constellation-node --url=https://$CURRENT_HOST_IP:9001/ --port=9001 --workdir=$DDIR2 --socket=node.ipc --publickeys=node.pub --privatekeys=node.key --othernodes=https://$CURRENT_HOST_IP:9000/ 2>>~/blockcheq/logs/constellation_$NODE_NAME.log &
 sleep 2
 
 NODE_NAME="general3"
+cp ~/blockcheq-node/data/static-nodes.json ~/blockcheq/data/"$NODE_NAME"/static-nodes.json
+cp ~/blockcheq-node/data/permissioned-nodes.json ~/blockcheq/data/"$NODE_NAME"/permissioned-nodes.json
 DDIR3=~/blockcheq/data/"$NODE_NAME"/constellation
 nohup constellation-node --url=https://$CURRENT_HOST_IP:9002/ --port=9002 --workdir=$DDIR3 --socket=node.ipc --publickeys=node.pub --privatekeys=node.key --othernodes=https://$CURRENT_HOST_IP:9000/ 2>>~/blockcheq/logs/constellation_$NODE_NAME.log &
 sleep 2
 
 NODE_NAME="general4"
+cp ~/blockcheq-node/data/static-nodes.json ~/blockcheq/data/"$NODE_NAME"/static-nodes.json
+cp ~/blockcheq-node/data/permissioned-nodes.json ~/blockcheq/data/"$NODE_NAME"/permissioned-nodes.json
 DDIR4=~/blockcheq/data/"$NODE_NAME"/constellation
 nohup constellation-node --url=https://$CURRENT_HOST_IP:9003/ --port=9003 --workdir=$DDIR4 --socket=node.ipc --publickeys=node.pub --privatekeys=node.key --othernodes=https://$CURRENT_HOST_IP:9000/ 2>>~/blockcheq/logs/constellation_$NODE_NAME.log &
 sleep 2
