@@ -35,7 +35,7 @@ echo "[*] Starting Ethereum nodes"
 NETID=953575379
 ARGS="--networkid $NETID --unlock 0 --password /home/blockcheq/blockcheq-node/scripts/passwords.txt --raft --rpc --rpcaddr 0.0.0.0 --rpcapi admin,db,eth,debug,miner,net,shh,txpool,personal,web3,quorum --emitcheckpoints"
 
-nohup geth --datadir /home/blockcheq/blockcheq/data/validator $ARGS --permissioned --raftport 50401 --rpcport 22000 --port 21000 2>>/home/blockcheq/blockcheq/logs/validator.log &
+PRIVATE_CONFIG=ignore nohup geth --datadir /home/blockcheq/blockcheq/data/validator $ARGS --permissioned --raftport 50401 --rpcport 22000 --port 21000 2>>/home/blockcheq/blockcheq/logs/validator.log &
 sleep 2
 PRIVATE_CONFIG=/home/blockcheq/blockcheq/data/general1/constellation/node.ipc nohup geth --datadir /home/blockcheq/blockcheq/data/general1 $ARGS --permissioned --raftport 50402 --rpcport 22001 --port 21001 2>>/home/blockcheq/blockcheq/logs/general1.log &
 PRIVATE_CONFIG=/home/blockcheq/blockcheq/data/general2/constellation/node.ipc nohup geth --datadir /home/blockcheq/blockcheq/data/general2 $ARGS --permissioned --raftport 50403 --rpcport 22002 --port 21002 2>>/home/blockcheq/blockcheq/logs/general2.log &
